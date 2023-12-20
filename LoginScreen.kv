@@ -1,0 +1,54 @@
+MDScreen:
+    id: LoginScreen
+    name: "LoginScreen"
+
+    MDFloatLayout:
+        
+        MDLabel:
+            text: "[b]W e l c o m e ![/b]"
+            font_size: "36sp"
+            pos_hint: {"center_x": .6, "center_y": .85}
+            markup: True
+
+        MDLabel:
+            text: "L o g i n   t o   c o n t i n u e"
+            font_size: "20sp"
+            pos_hint: {"center_x": .6, "center_y": .79}
+            markup: True
+        
+        MDTextField:
+            id: usn
+            font_size: "20sp"
+            cursor_width: "2sp"
+            hint_text: "   Username   "
+            icon_right: "account"
+            size_hint_x: .7
+            pos_hint: {"center_x": .5, "center_y": .6}
+            on_text: app.verify_username(self, self.text)
+        
+        MDTextField:
+            id: pwd
+            font_size: "20sp"
+            cursor_width: "2sp"
+            hint_text: "   Password   "
+            icon_right: "key"
+            size_hint_x: .7
+            pos_hint: {"center_x": .5, "center_y": .47}
+            password: True
+        
+        MDRaisedButton:
+            text: "L O G I N"
+            font_size: "20sp"
+            size_hint_x: .5
+            pos_hint: {"center_x": .5, "center_y": .3}
+            on_press: app.login(usn.text, pwd.text)
+        
+        MDLabel:
+            text: "Don't have an account? [ref=href][u][color=3492eb]Sign Up[/color][/u][/ref]"
+            font_size: "18sp"
+            pos_hint: {"center_y": .23, "center_x": .5}
+            halign: "center"
+            markup: True
+            on_ref_press:
+                app.screen_manager.transition.direction = "left"
+                app.screen_manager.current = "SignupScreen"
