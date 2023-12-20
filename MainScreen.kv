@@ -1,0 +1,85 @@
+<ListItem>
+    text: root.text
+    on_press: app.on_press(left_icon.icon, self.text)
+    IconLeftWidget:
+        id: left_icon
+        icon: root.icon_left
+    IconRightWidget:
+        id: right_icon
+        icon: root.icon_right
+        on_press: app.on_download_press(root.text)
+
+<Content_New_Dir>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "60dp"
+
+    MDTextField:
+        id: folder_name
+        hint_text: "Folder Name"
+
+<Content_Upload_File>
+    # orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "60dp"
+
+    MDTextField:
+        id: upload_file_path
+        hint_text: "Upload File"
+    
+    MDIconButton:
+        icon: "folder-open"
+        # size_hint_y: .15
+        font_size: "28dp"
+        on_press: app.open_file_manager()
+
+MDScreen:
+    id: MainScreen
+    name: "MainScreen"
+    on_enter: app.enter_main()
+
+    MDCard:
+        size_hint: .9, .8
+        pos_hint: {"center_x": .5, "center_y": .5}
+        style: "filled"
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 1
+            MDFloatLayout:
+                # md_bg_color: app.theme_cls.primary_color
+                pos_hint: {"center_x": .5, "center_y": .9}
+                size_hint: 1, .15
+                MDLabel:
+                    # md_bg_color: app.theme_cls.primary_color
+                    id: path
+                    text: "/"
+                    size_hint_x: .8
+                    # halign: "center"
+                    pos_hint: {"center_x": .45, "center_y": .5}
+                    markup: True
+                    font_size: "24dp"
+                
+                MDIconButton:
+                    icon: "folder-plus"
+                    pos_hint: {"center_x": .9, "center_y": .5}
+                    size_hint_y: .15
+                    font_size: "28dp"
+                    on_press: app.open_mkdir_dialog()
+
+            MDSeparator:
+                size_hint_x: .9
+                pos_hint: {"center_x": .5}
+                
+            MDScrollView:
+                size_hint: .9, .9
+                pos_hint: {"center_y": .45, "center_x": .5}
+
+                MDList:
+                    id: files_list
+    
+    MDFloatingActionButton:
+        icon: "upload"
+        pos_hint: {"center_x": .85, "center_y": .15}
+        on_press: app.open_upload_dialog()
